@@ -9,15 +9,18 @@ int main(void)
     
     Vector3 floorSize = {20.0f, 0.0f, 20.0f};
     
-    Vector3 agentPosition = {0.0f, 30.0f, 0.0f};
+    Vector3 agentPosition = {0.0f, 300.0f, 0.0f};
     Vector3 agentSize = {10.0f, 10.0f, 10.0f};
+    
+    double speed = 0.00f;
+    double acceleration = 0.00981f;
   
     InitWindow(screenWidth, screenHeight, "gravity");
 
    
     Camera3D camera = { 0 };
-    camera.position = (Vector3){ 10.0f, 10.0f, 10.0f };
-    camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };      
+    camera.position = (Vector3){ 50.0f, -10.0f, 10.0f };
+    camera.target = (Vector3){ 0.0f, 20.0f, 0.0f };      
     camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };           
     camera.fovy = 45.0f;                               
     camera.type = CAMERA_PERSPECTIVE;                 
@@ -28,13 +31,7 @@ int main(void)
 
     SetTargetFPS(60);   
     
-    //for(int i = 0; i < 100000; i++){
-            //sleep(1);
-            
-       // if(agentPosition.y == 0.0f){
-          //  break;
-      //  }
-      //  }
+ 
    
     while (!WindowShouldClose())        
     {
@@ -45,15 +42,15 @@ int main(void)
 
         BeginDrawing();
 
-        ClearBackground(WHITE);
+        ClearBackground(GRAY);
 
         BeginMode3D(camera);
         
         if(agentPosition.y - agentSize.y/2 >= 0.0f){
-        agentPosition.y-=0.05f;
+        agentPosition.y-=(speed += acceleration);
         }
         
-        DrawCubeV(agentPosition, agentSize, GREEN);
+        DrawCubeV(agentPosition, agentSize, BLUE);
         DrawCubeV((Vector3){0.0f, 0.0f, 0.0f}, floorSize, RED);
         
         
