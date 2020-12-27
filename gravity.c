@@ -9,7 +9,7 @@ int main(void)
     
     Vector3 floorSize = {20.0f, 0.0f, 20.0f};
     
-    Vector3 agentPosition = {0.0f, 300.0f, 0.0f};
+    Vector3 agentPosition = {0.0f, 500.0f, 0.0f};
     Vector3 agentSize = {10.0f, 10.0f, 10.0f};
     
     double speed = 0.00f;
@@ -38,6 +38,8 @@ int main(void)
         
         UpdateCamera(&camera);     
         if (IsKeyDown('Z')) camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
+        
+        if (IsKeyDown('R')) agentPosition.y = 500.0f;
     
 
         BeginDrawing();
