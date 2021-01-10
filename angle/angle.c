@@ -69,8 +69,12 @@ int main(void)
         
         UpdateCamera(&camera);     
         if (IsKeyDown('Z')) camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
+        if (IsKeyDown('R')){
+            agentPosition.y = initialHeight;
+            agentPosition.x = 0.0f;
+            agentPosition.z = 0.0f;
+        }
         
-        if (IsKeyDown('R')) agentPosition.y = 500.0f;
     
 
         BeginDrawing();
@@ -79,18 +83,28 @@ int main(void)
 
         BeginMode3D(camera);
         
+        
+        
         if(agentPosition.y - agentSize.y/2 >= 1.0f){
-        agentPosition.y-=(speed += acceleration);
+            agentPosition.y -= (speed += acceleration);
 
             agentPosition.x += angle;
         }
         
         
         DrawCube((Vector3){0.0f, initialHeight/2, 0.0f}, 2.0f, initialHeight, 2.0f, BLACK);
+        DrawCubeWires((Vector3){0.0f, initialHeight/2, 0.0f}, 2.0f, initialHeight, 2.0f, BLUE);
         
         
         DrawCubeV(agentPosition, agentSize, BLUE);
+        DrawCubeWires(agentPosition, agentSize.x, agentSize.y, agentSize.z, BLACK);
+        
         DrawCubeV((Vector3){0.0f, 0.0f, 0.0f}, floorSize, RED);
+        DrawCubeWires((Vector3){0.0f, 0.0f, 0.0f}, floorSize.x, floorSize.y, floorSize.z, BLACK);
+       // DrawCubeWires((Vector3){0.0f, 0.0f, 0.0f}, floorSize, RED);
+        
+        
+        
         
         
 
