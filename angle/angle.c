@@ -8,7 +8,10 @@ int main(void)
     printf("Enter the initial height(Meters): ");
     scanf("%f", &initialHeight);  
     
+    float angle;
     double speed = 0.00f;
+    Vector3 floorSize;
+    
     float acceleration;
     float *acceleration_ptr = &acceleration;
     printf("Enter the acceleration(Meters per second^2): ");
@@ -17,19 +20,35 @@ int main(void)
     *acceleration_ptr = acceleration / 1000.0;
 
 
-
+    char verticalOrAngle;
+    printf("Vertical(\"v\") or at angle(\"a\"): ");
+    scanf(" %c", &verticalOrAngle);
     
-    float angle;
-    float *angle_ptr = &angle;
-    printf("Enter the angle(In degrees, must be positive, must be between ): ");
-    scanf("%f", angle_ptr);
+    if(verticalOrAngle == 'v' || verticalOrAngle == 'V'){
+        angle = 0.0;
+        printf("Running...");
+        floorSize = (Vector3){20.0f, 1.0f, 20.0f};
+    } else if (verticalOrAngle == 'a' || verticalOrAngle == 'A'){
+        
+        float *angle_ptr = &angle;
+        printf("Enter the angle(In degrees, must be positive, must be between ): ");
+        scanf("%f", angle_ptr);
 
-    if(angle > 180 || angle < -180) {
-        printf("Angle can not be less than -180 deg or more than 180 deg");
-        return 0;
+        if(angle > 180 || angle < -180) {
+            printf("Angle can not be less than -180 deg or more than 180 deg");
+            return 0;
+        }
+        
+        *angle_ptr = angle / 100.0;
+        
+        printf("Running...");
+        
+        floorSize = (Vector3){200.0f, 1.0f, 20.0f};
+    
+    } else {
+       printf("Invalid input");
+       return 0;
     }
-    
-    *angle_ptr = angle / 100.0;
     
     
 
@@ -39,7 +58,7 @@ int main(void)
     const int screenHeight = 1000;
   
     
-    Vector3 floorSize = {200.0f, 1.0f, 20.0f};
+    
     
     Vector3 agentPosition = {0.0f, initialHeight, 0.0f};
     Vector3 agentSize = {10.0f, 10.0f, 10.0f};
