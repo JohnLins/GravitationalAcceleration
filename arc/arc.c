@@ -2,14 +2,16 @@
 //#include <unistd.h>
 #include <stdio.h>
 
-/*
-float path(float *acceleration, float *angle, float *x, float *initialHeight){
-    //x^2
+
+float path(float *acceleration, float *changeInX, float x, float *initialHeight){
+    printf("%f", *acceleration);
+    return (-1 * ((1 / *changeInX) * x^2)) + *initialHeight;
     //float a = 0.1;
     //a is vertial stretch and compression
-    return 0.2((*x)*(*x)) + *initialHeight;
+    //return 0.2((*x)*(*x)) + *initialHeight;
 }
-*/
+
+
 
 int main(void)
 {
@@ -19,7 +21,7 @@ int main(void)
     scanf("%f", &initialHeight);  
     
     float angle;
-    double speed = 0.00f;
+    //double speed = 0.00f;
     Vector3 floorSize;
     
     float acceleration;
@@ -42,7 +44,7 @@ int main(void)
     } else if (verticalOrAngle == 'a' || verticalOrAngle == 'A'){
         
         float *angle_ptr = &angle;
-        printf("Enter the angle(In degrees, must be positive, must be between -30deg and 30deg): ");
+        printf("Enter the angle(In degrees, must be positive, must be between ): ");
         scanf("%f", angle_ptr);
 
         if(angle > 180 || angle < -180) {
@@ -62,6 +64,7 @@ int main(void)
     }
     
     
+    float changeInX = 20.0;
 
     
   
@@ -116,9 +119,10 @@ int main(void)
         
         
         if(agentPosition.y - agentSize.y/2 >= 1.0f){
-                agentPosition.y -= (speed += acceleration);
+            agentPosition.x += 1.0;
+            agentPosition.y = path(&acceleration, &changeInX, agentPosition.x, initialHeight);
            
-                agentPosition.x += angle;
+                
             
         }
         
